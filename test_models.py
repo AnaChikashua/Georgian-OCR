@@ -1,5 +1,5 @@
 # from doctr import DocumentFile
-from _doctr import ocr_predictor
+from custom_models._doctr import ocr_predictor
 
 model = ocr_predictor(pretrained=True)
 # PDF
