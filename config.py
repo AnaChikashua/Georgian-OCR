@@ -1,5 +1,4 @@
 import json
-import pathlib
 from bidict import bidict
 
 with open("config.json", "r", encoding="utf8") as f:

@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 from bidict import bidict
-from tensorflow import keras
+import keras
 
 ENCODER = bidict({
     'ა': 1, 'ბ': 2, 'გ': 3, 'დ': 4, 'ე': 5, 'ვ': 6,
@@ -10,8 +10,8 @@ ENCODER = bidict({
     'ტ': 19, 'უ': 20, 'ფ': 21, 'ქ': 22, 'ღ': 23, 'ყ': 24,
     'შ': 25, 'ჩ': 26, 'ც': 27, 'ძ': 28, 'წ': 29, 'ჭ': 30, 'ხ': 31, 'ჯ': 32, 'ჰ': 33
 })
-model_path = 'geo_model.model'
-model = keras.models.load_model(model_path)
+model_path = 'geo_model.h5'
+model = keras.models.load_model(model_path, compile=True)
 
 
 def test_model(file_path):

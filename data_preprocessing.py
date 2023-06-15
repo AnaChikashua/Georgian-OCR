@@ -1,7 +1,7 @@
 from sklearn.utils import shuffle
 import numpy as np
 class Preprocessing:
-    def get_label_data(img_data):
+    def get_label_data(self, img_data):
         labels = []
         imgs = np.array([val for ob in img_data.values() for val in ob])
         for key, value in img_data.items():
@@ -10,7 +10,7 @@ class Preprocessing:
         labels, imgs = shuffle(labels, imgs)
         return labels, imgs
     
-    def train_test_split(self,img_data, split=.75):
+    def train_test_split(self, img_data, split=.75):
         labels, imgs = self.get_label_data(img_data)
         labels_train = labels[:int(len(labels) * split)]
         labels_test = labels[int(len(labels) * split):]

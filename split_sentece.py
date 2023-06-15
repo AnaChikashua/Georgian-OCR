@@ -21,6 +21,7 @@ for c in cnts:
         cv2.imwrite('result/{}_{}.png'.format(file_name[:-3], ROI_number), ROI)
         cv2.rectangle(image, (x, y), (x + w, y + h), (36, 255, 12), 1)
         ROI_number += 1
+
 cv2.imshow('thresh', thresh)
 cv2.imshow('image', image)
 cv2.waitKey()
