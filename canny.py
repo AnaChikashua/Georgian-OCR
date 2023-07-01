@@ -1,6 +1,7 @@
 import cv2
+from imutils import contours
 
-image = cv2.imread('data/Untitled.jpg')
+image = cv2.imread('data/Screenshot 2023-06-30 131823.png')
 original = image.copy()
 
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -9,6 +10,10 @@ canny = cv2.Canny(blur, 120, 255, 1)
 
 cnts = cv2.findContours(canny, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 cnts = cnts[0] if len(cnts) == 2 else cnts[1]
+# cnts, _ = contours.sort_contours(cnts, method="left-to-right")
+# cnts, _ = contours.sort_contours(cnts, method="top-to-bottom")
+cnts = sorted(cnts, key=lambda c: (cv2.boundingRect(c)[0], cv2.boundingRect(c)[1]))
+
 
 min_area = 100
 image_number = 0
@@ -20,3 +25,5 @@ for c in cnts:
         ROI = original[y:y+h, x:x+w]
         cv2.imwrite("ROI_{}.png".format(image_number), ROI)
         image_number += 1
+cv2.imshow('image', image)
+cv2.waitKey()

@@ -10,7 +10,7 @@ class Preprocessing:
         labels, imgs = shuffle(labels, imgs)
         return labels, imgs
     
-    def train_test_split(self, img_data, split=.75):
+    def train_test_split(self, img_data, split=.85):
         labels, imgs = self.get_label_data(img_data)
         labels_train = labels[:int(len(labels) * split)]
         labels_test = labels[int(len(labels) * split):]

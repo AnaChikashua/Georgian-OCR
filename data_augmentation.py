@@ -102,16 +102,16 @@ class DataAugmentation:
 
     def process_data(self):
         data = self.get_data()
-        for char in tqdm(data):
-            for img in data[char]:
-                augment_img = self.augment_img(img)
-                if not len(augment_img):
-                    continue
-                # self.data_visualization(img)
-                # self.data_visualization(augment_img)
-                if augment_img.shape != (50, 50, 1):
-                    augment_img = np.expand_dims(augment_img, -1)
-                data[char].append(augment_img)
+        # for char in tqdm(data):
+        #     for img in data[char]:
+        #         augment_img = self.augment_img(img)
+        #         if not len(augment_img):
+        #             continue
+        #         # self.data_visualization(img)
+        #         # self.data_visualization(augment_img)
+        #         if augment_img.shape != (50, 50, 1):
+        #             augment_img = np.expand_dims(augment_img, -1)
+        #         data[char].append(augment_img)
         return data
 
 
