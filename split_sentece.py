@@ -1,28 +1,37 @@
 import cv2
 from imutils import contours
 
-file_name = 'Screenshot 2023-06-30 131823.png'
-image = cv2.imread(f'data/{file_name}')
-image = cv2.bitwise_not(image)
-image = cv2.resize(image, (200, 200))
-gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_OTSU + cv2.THRESH_BINARY)[1]
+def split_word(file_name, image=None, save_chars=False):
+    if not image:
+        image = cv2.imread(f'{file_name}')
 
-cnts = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-cnts = cnts[0] if len(cnts) == 2 else cnts[1]
-cnts, _ = contours.sort_contours(cnts, method="left-to-right")
+    image = cv2.imread(f'{file_name}')
+    image = cv2.bitwise_not(image)
+    image = cv2.resize(image, (200, 200))
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_OTSU + cv2.THRESH_BINARY)[1]
 
-ROI_number = 0
-print(cnts)
-for c in cnts:
-    area = cv2.contourArea(c)
-    if area > 10:
-        x, y, w, h = cv2.boundingRect(c)
-        ROI = 255 - image[y:y + h, x:x + w]
-        # cv2.imwrite('result/{}_{}.png'.format(file_name[:-3], ROI_number), ROI)
-        cv2.rectangle(image, (x, y), (x + w, y + h), (36, 255, 12), 1)
-        ROI_number += 1
+    cnts = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    cnts = cnts[0] if len(cnts) == 2 else cnts[1]
+    cnts, _ = contours.sort_contours(cnts, method="left-to-right")
 
-cv2.imshow('thresh', thresh)
-cv2.imshow('image', image)
-cv2.waitKey()
+    ROI_number = 0
+    ROIS = []
+    for c in cnts:
+        area = cv2.contourArea(c)
+        if area > 10:
+            x, y, w, h = cv2.boundingRect(c)
+            ROI = 255 - image[y:y + h, x:x + w]
+            if save_chars:
+                cv2.imwrite('result/{}_{}.png'.format(file_name[5:-4], ROI_number), ROI)
+            cv2.rectangle(image, (x, y), (x + w, y + h), (36, 255, 12), 1)
+            ROI_number += 1
+            ROIS.append(ROI)
+    return ROIS
+
+if __name__ == '__main__':
+    file_name = 'words/word0_0-1.jpg'
+    ROIS = split_word(file_name=file_name,save_chars=True)
+    for ROI in ROIS:
+        cv2.imshow('ROI', ROI)
+        cv2.waitKey()

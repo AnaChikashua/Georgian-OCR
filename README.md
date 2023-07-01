@@ -10,7 +10,7 @@ This project aims to develop an Optical Character Recognition (OCR) system speci
 - Post-processing methods for language-specific text correction and normalization.
 - Integration with external applications or libraries for further processing or analysis.
 
-
+<br></br>
 - Huggingface Dataset does not working
 - <del> load_model returns utf 8 encoding error </del>
 - Should build better convolution neural net
