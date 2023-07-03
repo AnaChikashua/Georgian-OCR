@@ -170,7 +170,7 @@ if __name__ == "__main__":
     # Parse command-line arguments
 
     # Get word images
-    img = 'whiteboard.png'
+    img = 'input_data/ilia.jpg'
     words = 'words'
     intermediate = 'intermediate'
     scale = 1

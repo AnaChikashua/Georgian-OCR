@@ -23,6 +23,7 @@ def split_word(file_name, image=None, save_chars=False):
             x, y, w, h = cv2.boundingRect(c)
             ROI = 255 - image[y:y + h, x:x + w]
             if save_chars:
+                print('result/{}_{}.png'.format(file_name[5:-4], ROI_number))
                 cv2.imwrite('result/{}_{}.png'.format(file_name[5:-4], ROI_number), ROI)
             cv2.rectangle(image, (x, y), (x + w, y + h), (36, 255, 12), 1)
             ROI_number += 1
@@ -30,8 +31,8 @@ def split_word(file_name, image=None, save_chars=False):
     return ROIS
 
 if __name__ == '__main__':
-    file_name = 'words/word0_0-1.jpg'
-    ROIS = split_word(file_name=file_name,save_chars=True)
+    file_name = 'words/word0_1-0.jpg'
+    ROIS = split_word(file_name=file_name, save_chars=True)
     for ROI in ROIS:
         cv2.imshow('ROI', ROI)
         cv2.waitKey()
