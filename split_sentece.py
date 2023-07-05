@@ -23,16 +23,16 @@ def split_word(file_name, image=None, save_chars=False):
             x, y, w, h = cv2.boundingRect(c)
             ROI = 255 - image[y:y + h, x:x + w]
             if save_chars:
-                print('result/{}_{}.png'.format(file_name[5:-4], ROI_number))
-                cv2.imwrite('result/{}_{}.png'.format(file_name[5:-4], ROI_number), ROI)
+                print('result/{}_{}.png'.format('xeli', ROI_number))
+                cv2.imwrite('result/{}_{}.png'.format('xeli', ROI_number), ROI)
             cv2.rectangle(image, (x, y), (x + w, y + h), (36, 255, 12), 1)
             ROI_number += 1
             ROIS.append(ROI)
     return ROIS
 
 if __name__ == '__main__':
-    file_name = 'words/word0_1-0.jpg'
+    file_name = r'C:\Users\annch\OneDrive\Desktop\master\ocr\nini.jpg'
     ROIS = split_word(file_name=file_name, save_chars=True)
-    for ROI in ROIS:
-        cv2.imshow('ROI', ROI)
-        cv2.waitKey()
+    # for ROI in ROIS:
+    #     cv2.imshow('ROI', ROI)
+    #     cv2.waitKey()

@@ -1,6 +1,7 @@
 import numpy as np
 from ultralytics import YOLO
 from bidict import bidict
+import cv2
 ENCODER = bidict({
         'ა': 1, 'ბ': 2, 'გ': 3, 'დ': 4, 'ე': 5, 'ვ': 6,
         'ზ': 7, 'თ': 8, 'ი': 9, 'კ': 10, 'ლ': 11, 'მ': 12,
@@ -10,8 +11,13 @@ ENCODER = bidict({
     })# Load a model
 model = YOLO(r'C:\Users\annch\OneDrive\Desktop\master\ocr\runs\classify\train6\weights\best.pt')  # load a custom model
 
+imgs = [r'C:\Users\annch\OneDrive\Desktop\master\ocr\data\9.png', r'C:\Users\annch\OneDrive\Desktop\master\ocr\data\p.jpg', r'C:\Users\annch\OneDrive\Desktop\master\ocr\data\a.jpg']
+img = cv2.imread(imgs[0])
+print(img)
+print(img.shape)
 # Predict with the model
-results = model(r'result\word0_1-0_5.png')
+# for img in imgs:
+results = model(img)
 names_dict = results[0].names
 probs = results[0].probs.tolist()
 

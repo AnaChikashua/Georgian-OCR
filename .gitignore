@@ -163,3 +163,8 @@ words/
 intermediate/
 result/
 runs/
+dataset/
+data/
+model_checkpoint/
+logs/
+*.h5
